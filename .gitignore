@@ -1,2 +1,30 @@
 *experiments*
+<<<<<<< HEAD
 .DS_Store
+=======
+
+### OS generated files
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Folder config file
+Desktop.ini
+
+# Windows shortcuts
+*.lnk
+>>>>>>> re-upload HW03 changes since deleted/reforked, etc
