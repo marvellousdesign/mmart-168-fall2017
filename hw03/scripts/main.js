@@ -30,8 +30,8 @@ const changeLinkAndImageAttributes = () => {
 const changeClassAttribute = () => {
 	console.log('changing class attribute')
 	// YOUR CODE BELOW THIS LINE
-	var tweets = document.querySelectorAll('.tweet')
-	for (var i = 0; i < tweets.length; i++) {
+	const tweets = document.querySelectorAll('.tweet')
+	for (const i = 0; i < tweets.length; i++) {
 		tweets[i].className = 'tweet-pink'
 	}
 	// This 'getElementsByClassName' doesn't change both of them at the same time, but have to click the button twice..
@@ -42,11 +42,11 @@ const appendElements = () => {
 	// YOUR CODE BELOW THIS LINE
 	// document.querySelector('#message1').innerHTML += '<br><a href="https://f17.ebook.mmart.us/">Intro to JavaScript</a>'
 
-	var tweet1 = document.querySelector('#tweet1')
-	var a = document.createElement('a')
+	const tweet1 = document.querySelector('#tweet1')
+	const a = document.createElement('a')
 	a.appendChild(document.createTextNode('Intro to JavaScript'))
 	a.href = 'https://f17.ebook.mmart.us/'
-	var img = document.createElement('img')
+	const img = document.createElement('img')
 	img.src =
 		'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/240px-Unofficial_JavaScript_logo_2.svg.png'
 
