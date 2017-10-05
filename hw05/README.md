@@ -14,6 +14,8 @@ Create a new branch to do Homework 5
 ## PART II: Reading response
 Edit README.MD and write your reading response here!
 
+See link or response in moodle (I like to keep this private thanks!).
+
 ## Part III: JavaScript Homework
 
 ### Step 1: Reverse a tweet
