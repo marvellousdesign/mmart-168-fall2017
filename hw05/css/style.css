@@ -1,0 +1,68 @@
+document, body {
+   font-family: Arial;
+   color: #444;
+   margin: 0px;
+   background: #e6ecf0;
+}
+.navbar {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25);
+    border-bottom: solid 1px rgba(100, 100, 100, 0.3);
+}
+
+h1 {
+    margin: 0px;
+    font-weight: 400;
+    height: 100px;
+    line-height: 100px;
+    padding-left: 20px;
+    font-size: 30px;
+    border-bottom: solid 1px #DDD;
+}
+pre {
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.container-main {
+    width: 55vw;
+    min-height: calc(100vh - 70px);
+    margin: auto;
+    margin-top: 70px;
+    display: block;
+    background: #FFF;
+}
+.input-group {
+    margin: 20px;
+}
+.fa-twitter {
+    color: #1DA1F2;
+}
+.btn-primary {
+    background: #1DA1F2;
+}
+
+.tweet {
+    border-bottom: solid 1px #DDD;
+    padding: 20px;
+}
+.tweet img {
+    height: 200px;
+}
+.red {
+  background: red;
+}
+
+
+
+/*************************/
+/* JSON Syntax Highlight */
+/*************************/
+pre {
+    background-color: #FFF;
+    border: 0px;
+}
+.string { color: #BD5667; }
+.number { color: #383578; }
+.boolean { color: #25A680; }
+.null { color: #31484E; }
+.key { color: #2B5173; }
