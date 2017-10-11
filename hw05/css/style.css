@@ -49,12 +49,11 @@ pre {
 .tweet img {
   height: 200px;
 }
-.red {
-  background: red;
-}
-
 .tweet-red {
   background: rgba(255, 30, 30, 0.1);
+}
+.red {
+  background: red;
 }
 
 /*************************/
