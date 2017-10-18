@@ -41,7 +41,6 @@ const appendElements = () => {
   console.log('appending element')
   // YOUR CODE BELOW THIS LINE
   // document.querySelector('#message1').innerHTML += '<br><a href="https://f17.ebook.mmart.us/">Intro to JavaScript</a>'
-
   const tweet1 = document.querySelector('#tweet1')
   const a = document.createElement('a')
   a.appendChild(document.createTextNode('Intro to JavaScript'))
