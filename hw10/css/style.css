@@ -28,14 +28,13 @@ select#station_list {
 }
 
 h3 {
-    margin: 20px 0 5px;
+    margin: 30px 0 5px;
 }
 
 span {
-    display: line-block;
-    visibility: middle;
+    display: inline-block;
+    vertical-align: middle;
     margin: 5px;
-    padding: 5px;
     font-weight: normal;
 }
 
