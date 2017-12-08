@@ -1,7 +1,7 @@
 var PAGES = [
 	{
 		img: 'img/npc.jpg',
-		keywords: ['New', 'Game'],
+		keywords: ['New Adventure'],
 		text: 'Welcome to Choose Your Own Adventure!',
 		target: 0,
 		type: 'choice',
@@ -30,7 +30,7 @@ var PAGES = [
 	},
 	{
 		text: 'Character Creation',
-		keywords: ['Character', 'Creation'],
+		keywords: ['New Character', 'Midevil'],
 		target: 2,
 		type: 'choice',
 		choices: [

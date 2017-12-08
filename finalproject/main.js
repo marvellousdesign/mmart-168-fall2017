@@ -1,6 +1,3 @@
-const key = 'AIzaSyA0OwYNa1ng9-5MAUhOpwOc9f2PU_kqeeY'
-const searchEngineID = '011931807795810912304:yctplun7xr4'
-
 // org https://jsfiddle.net/crmardix/zjWaj/
 const clearPage = () => {
 	document.getElementById('pageImg').innerHTML = ''
@@ -12,53 +9,46 @@ const setPageText = (text) => {
 	document.getElementById('pageText').innerHTML = `<p> ${text} </p>`
 }
 
-const setPageImg = (img) => {
-	const keywords = PAGES.keywords
-	const googleImage = 'https://www.googleapis.com/customsearch/v1?key='
-	+ key + '&cx=' + searchEngineID + '&q=' + keywords + '&num=1&safe=medium&searchType=image'
-	const fetchImg = () => {
-		fetch(googleImage)
-		    .then(function(response) {
-		    return response.json();
-		}).then(function(json) {
-		    console.log(json)
-		    const items = json.items
-			items.forEach((item) => {
-		        console.log(item.link)
-		        const img = document.createElement('img')
-		        img.src = item.link
-				document.getElementById('pageImg').appendChild(img)
-		    })
-		});
-	}
+const setPageImg = (data) => {
+	const hardCodedImg = data.img
+	const keywords = data.keywords
 
-	if (keywords === undefined) {
-		document.getElementById('pageImg').innerHTML += `<img src=${img} />`
-	} else if (img === undefine) {
-		fetchImg()
-	} else {
-		fetchImg()
-	}
+	//flickr public photos feed
+	const flickr = `https://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?`
+	// can't use the fetch without throwing CORs error (Cross Orgin Request), only works with jQuery...
+
+	$.getJSON( flickr, {
+        tags: keywords, 	// Can't seem to search by keywords, it's just random recently upload images
+        tagmode: "any",
+        format: "json"
+    },
+    function(data) {
+		const random = Math.floor(Math.random() * data.items.length)
+		const img = document.createElement('img')
+		img.src = data.items[random]['media']['m'].replace('_m', '_b')
+		document.getElementById('pageImg').appendChild(img)
+		console.log('Image fetched: ' + img.src)
+    })
 }
 
 const addChoice = (text, target) => {
 	document.getElementById('response').innerHTML +=
-        `<button class=choice data-target= ${target} onClick="toggle(this)"> ${text} </button>`
+        `<button class=choice data-target=${target} onClick="toggle(this)"> ${text} </button>`
 }
 
 const loadPage = (target) => {
 	// Fetch JSON for page data associated with given data-target
-	const data = PAGES[target]
-	console.log('Current Page Keyword: ' + PAGES[target].keywords + ', Current Page: ' + PAGES[target])
+	const pageData = PAGES[target]
+	console.log('Current Page Keyword: ' + PAGES[target].keywords + ' | Current Page: ' + PAGES[target])
 
 	clearPage()
-	setPageText(data.text)
-	setPageImg(data.img)
-	console.log('Page Text: ' + data.text + ', Keywords: ' + data.keywords + ', Img: ' + data.img)
+	setPageText(pageData.text)
+	setPageImg(pageData)
+	console.log('Page Text: ' + pageData.text + ' | Keywords: ' + pageData.keywords + ' | Img: ' + pageData.img)
 
-	if (data.type === 'choice') {
-		for (let choice in data.choices) {
-			const CYOA = data.choices[choice]
+	if (pageData.type === 'choice') {
+		for (let choice in pageData.choices) {
+			const CYOA = pageData.choices[choice]
 			addChoice(CYOA.text, CYOA.target)
 		}
 	}
@@ -70,5 +60,5 @@ const toggle = choice => {
 	choice.classList.toggle('choice')
 	const target = choice.getAttribute('data-target')
 	loadPage(target)
-	console.log('Selected Target: ' + target)
+	console.log('Selected Target #: ' + target)
 }
