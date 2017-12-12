@@ -114,11 +114,16 @@ var PAGES = [
 		choices: [
 			{
 				text: 'Fight',
-				target: 12
-			},
-			{
-				text: 'Lose',
-				target: 28
+				type: 'battle',
+				battles: [
+					{
+						target: 12,
+						text: 'You won the fight!'
+				}, {
+						target: 28,
+						text: 'You lost the fight!'
+					}
+				]
 			}
 		]
 	},
@@ -146,17 +151,23 @@ var PAGES = [
 		choices: [
 			{
 				text: 'Fight',
-				target: 12
-			},
-			{
-				text: 'Lose',
-				target: 10
+				type: 'boss',
+				battles: [
+					{
+						target: 12,
+						text: 'You won the fight!'
+				}, {
+						target: 10,
+						text: 'You lost the fight!'
+					}
+				]
 			}
 		]
 	},
 	{
 		text: 'Bad Ending: The Boss defeated you!',
 		keywords: ['Game Over: You have been defeated!'],
+		img: 'img/gameover.jpg',
 		target: 10,
 		type: 'choice',
 		choices: [
@@ -355,7 +366,7 @@ var PAGES = [
 				target: 24
 			},
 			{
-				text: 'I hail from a wealthy merchant family, and I seek new trades.',
+				text: 'I hail from a wealthy merchant family, and I seek new riches.',
 				target: 25
 			},
 			{
@@ -390,7 +401,7 @@ var PAGES = [
 		img: 'img/npc.jpg',
 		target: 24,
 		keywords: ['farmer', 'rural', 'Agriculture'],
-		text: 'Ah, the rural life on the farm?',
+		text: 'Ah, the rural farm life has got you down?',
 		type: 'choice',
 		choices: [
 			{
@@ -407,7 +418,7 @@ var PAGES = [
 		img: 'img/npc.jpg',
 		target: 25,
 		keywords: ['jewelry', 'shop', 'merchant'],
-		text:	'A merchant\'s child? You\'re quite the young aristocrat, aren\'t you?',
+		text:	'You\'re quite the snappy aristocrat, aren\'t you?',
 		type: 'choice',
 		choices: [
 			{
@@ -424,7 +435,7 @@ var PAGES = [
 		img: 'img/npc.jpg',
 		target: 26,
 		keywords: ['thief', 'rogue'],
-		text: 'Ah, a shady type. Fine, you don\'t have to tell me.',
+		text: 'Ah, a shady type. Fine, you don\'t have to tell me, but I\'m watching you..',
 		type: 'choice',
 		choices: [
 			{
@@ -455,14 +466,14 @@ var PAGES = [
 		]
 	},
 	{
-		img: 'img/npc.jpg',
-		text: 'Welcome back.',
+		keywords: ['comfy bed', 'sleep'],
+		text: 'You were knock out cold and mysteriously woke up at the Inn.',
 		target: 28,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Talk',
-				target: 22
+				text: 'Pub, Inn',
+				target: 21
 			},
 			{
 				text: 'Town',

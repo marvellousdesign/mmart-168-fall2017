@@ -58,10 +58,10 @@ img {
 #pageText {
     position: absolute;
     color: white;
-    top: 250px;
+    top: 280px;
     text-shadow: 1px 1px 2px #1F232B, 1px 1px 5px #1F232B, 1px 1px 10px #1F232B;
-    padding-left: 10px;
-    width: 300px;
+    padding: 0 150px;
+    max-width: inherit;
 }
 #pageText p {
     text-align: center;
@@ -97,3 +97,6 @@ img {
     font-size: 10px;
     line-height: 2;
 }
+/*[data-target='undefined'] {
+    display: none;
+}*/
