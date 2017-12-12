@@ -8,11 +8,20 @@
     <link type="text/css" rel="stylesheet" href="styles.css"></link>
 </head>
 <body>
-    <div id="page" class="blockCenter">
-        <div id="pageImg"></div>
+    <!-- forms doesn't work for this purpose, it just reloads the page rather than loading page 0 from the JSON -->
+    <div id="initialize" class="flex">
+        <h2>Choose Your Poison</h2>
+        <div>
+            <label><input type="radio" name="api" value="flickr"> flickr</label>
+        </div>
+        <div>
+            <label><input type="radio" name="api" value="google"> Google</label>
+        </div>
+        <button onClick="chooseAPI()" class="choice">Select</button>
+    </div>
+    <div id="page">
         <div id="pageText"></div>
-        <div id="response">
-
+        <div id="response" class="flex">
         </div>
     </div>
     <p class="diclaimer">Images are being fetched from Google Custom Search API or Flickr Public Photos feed for demo purposes.</p>

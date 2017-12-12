@@ -17,6 +17,7 @@ var PAGES = [
 		]
 	},
 	{
+		// unused for now, but will break the chain if I delete them
 		// text: 'Continue',
 		// keywords: ['Continue', 'adventure'],
 		// target: 3,
@@ -70,13 +71,13 @@ var PAGES = [
 	},
 	{
 		img: 'img/world.jpg',
-		text: 'Explore World',
+		text: 'Choose your destination.',
 		keywords: ['land', 'map', 'forest', 'Explore'],
 		target: 5,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Town',
+				text: 'Towns',
 				target: 11
 			},
 			{
@@ -106,7 +107,7 @@ var PAGES = [
 		]
 	},
 	{
-		text: 'You\'ve wander into a trap and local inhabitants have found you!',
+		text: 'The local inhabitants have found you!',
 		keywords: ['enemies', 'monsters'],
 		target: 7,
 		type: 'choice',
@@ -138,23 +139,23 @@ var PAGES = [
 		]
 	},
 	{
-		text: 'Mid Boss, Boss',
+		text: 'The Boss is mad!',
 		keywords: ['mid boss', 'boss'],
 		target: 9,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Win',
+				text: 'Fight',
 				target: 12
 			},
 			{
-				text: 'Defeat, Bad Ending Scene',
+				text: 'Lose',
 				target: 10
 			}
 		]
 	},
 	{
-		text: 'Defeat, Bad Ending Scene',
+		text: 'Bad Ending: The Boss defeated you!',
 		keywords: ['Game Over: You have been defeated!'],
 		target: 10,
 		type: 'choice',
@@ -289,7 +290,7 @@ var PAGES = [
 	},
 	{
 		text: 'Markets',
-		keywords: ['Markets', 'shops', 'weapons'],
+		keywords: ['Markets', 'shops'],
 		target: 19,
 		type: 'choice',
 		choices: [
