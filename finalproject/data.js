@@ -1,60 +1,60 @@
 var PAGES = [
 	{
 		img: 'img/npc.jpg',
-		keywords: ['New Adventure'],
+		keywords: ['adventures', 'world'],
 		text: 'Welcome to Choose Your Own Adventure!',
 		target: 0,
 		type: 'choice',
 		choices: [
-			{
-				text: 'Continue',
-				target: 1
-			},
+			// {
+			// 	text: 'Continue',
+			// 	target: 1
+			// },
 			{
 				text: 'New Game',
-				target: 2
-			}
-		]
-	},
-	{
-		text: 'Continue',
-		keywords: ['Continue', 'Game'],
-		target: 3,
-		type: 'choice',
-		choices: [
-			{
-				text: 'World, Dungeon Save',
-				target: 4
-			}
-		]
-	},
-	{
-		text: 'Character Creation',
-		keywords: ['New Character', 'Midevil'],
-		target: 2,
-		type: 'choice',
-		choices: [
-			{
-				text: 'Starting Game',
 				target: 3
 			}
 		]
 	},
 	{
-		text: 'You\'ve been mysterously transported to a island unbeknownst to you, and you have lost your memories.',
-		keywords: ['Ship reck', 'island'],
+		// text: 'Continue',
+		// keywords: ['Continue', 'adventure'],
+		// target: 3,
+		// type: 'choice',
+		// choices: [
+		// 	{
+		// 		text: 'World, Dungeon Save',
+		// 		target: 4
+		// 	}
+		// ]
+	},
+	{
+		// text: 'Character Creation',
+		// keywords: ['new', 'Character', 'adventure'],
+		// target: 2,
+		// type: 'choice',
+		// choices: [
+		// 	{
+		// 		text: 'Starting Game',
+		// 		target: 3
+		// 	}
+		// ]
+	},
+	{
+		text: 'You\'ve been mysterously transported to a island unbeknownst to you, and you have lost all of your memories.',
+		keywords: ['Shipwreck', 'boat'],
 		target: 3,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Explore World',
+				text: 'You wander around the new world.',
 				target: 5
 			}
 		]
 	},
 	{
 		text: 'World, Dungeon Save',
-		keywords: ['Explore'],
+		keywords: ['Explore', 'world'],
 		target: 4,
 		type: 'choice',
 		choices: [
@@ -71,12 +71,12 @@ var PAGES = [
 	{
 		img: 'img/world.jpg',
 		text: 'Explore World',
-		keywords: ['Explore', 'world'],
+		keywords: ['land', 'map', 'forest', 'Explore'],
 		target: 5,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Towns',
+				text: 'Town',
 				target: 11
 			},
 			{
@@ -90,50 +90,46 @@ var PAGES = [
 			{
 				text: 'Dungeons',
 				target: 6
-			},
-			{
-				text: 'Enemies, Monsters',
-				target: 7
 			}
 		]
 	},
 	{
 		text: 'Dungeons',
-		keywords: ['dungoen'],
+		keywords: ['dungeon', 'cave'],
 		target: 6,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Explore',
+				text: 'Explore Dungeon',
 				target: 20
 			}
 		]
 	},
 	{
-		text: 'Enemies, Monsters',
-		keywords: ['monsters'],
+		text: 'You\'ve wander into a trap and local inhabitants have found you!',
+		keywords: ['enemies', 'monsters'],
 		target: 7,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Fight|Win',
+				text: 'Fight',
 				target: 12
 			},
 			{
-				text: 'Lose|Towns',
-				target: 21
+				text: 'Lose',
+				target: 28
 			}
 		]
 	},
 	{
-		text: 'Loot, Treasures',
-		keywords: ['gold', 'money'],
+		text: 'You looted their treasures.',
+		keywords: ['gold','treasures'],
 		target: 8,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Dungeons',
-				target: 6
+				text: 'Continue Exploring',
+				target: 20
 			},
 			{
 				text: 'Explore World',
@@ -143,7 +139,7 @@ var PAGES = [
 	},
 	{
 		text: 'Mid Boss, Boss',
-		keywords: ['mid boss'],
+		keywords: ['mid boss', 'boss'],
 		target: 9,
 		type: 'choice',
 		choices: [
@@ -159,27 +155,23 @@ var PAGES = [
 	},
 	{
 		text: 'Defeat, Bad Ending Scene',
-		keywords: ['game over'],
+		keywords: ['Game Over: You have been defeated!'],
 		target: 10,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Game Over|Title Menu',
+				text: 'Game Over',
 				target: 0
 			}
 		]
 	},
 	{
 		img: 'img/town.jpg',
-		keywords: ['Towns'],
-		text: 'Towns',
+		keywords: ['Town', 'village', 'city'],
+		text: 'You arrived at a nearby town',
 		target: 11,
 		type: 'choice',
 		choices: [
-			{
-				text: 'Explore World',
-				target: 5
-			},
 			{
 				text: 'Pub, Inn',
 				target: 21
@@ -187,38 +179,38 @@ var PAGES = [
 			{
 				text: 'Markets',
 				target: 19
+			},
+			{
+				text: 'Castle',
+				target: 15
+			},
+			{
+				text: 'Explore World',
+				target: 5
 			}
 		]
 	},
 	{
-		text: 'Win',
-		keywords: ['winner'],
+		img: 'img/winner.jpg',
+		text: 'You won the fight!',
 		target: 12,
 		type: 'choice',
 		choices: [
 			{
 				text: 'Loot, Treasures',
 				target: 8
-			},
-			{
-				text: 'Explore',
-				target: 20
 			}
 		]
 	},
 	{
 		text: 'Level 2',
-		keywords: ['dungoen'],
+		keywords: ['dungeon', 'cave'],
 		target: 13,
 		type: 'choice',
 		choices: [
 			{
 				text: 'Enemies, Monsters',
 				target: 7
-			},
-			{
-				text: 'Loot, Treasures',
-				target: 8
 			},
 			{
 				text: 'Level 3, etc',
@@ -228,18 +220,10 @@ var PAGES = [
 	},
 	{
 		text: 'Level 3, etc',
-		keywords: ['dungoen'],
+		keywords: ['dungeon', 'cave'],
 		target: 14,
 		type: 'choice',
 		choices: [
-			{
-				text: 'Enemies, Monsters',
-				target: 7
-			},
-			{
-				text: 'Loot, Treasures',
-				target: 8
-			},
 			{
 				text: 'Dramatic Boss Cutscene',
 				target: 17
@@ -248,18 +232,22 @@ var PAGES = [
 	},
 	{
 		img: 'img/castle.jpg',
-		keywords: ['castle'],
+		keywords: ['castle', 'england'],
 		text: 'Castles',
 		target: 15,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Explore World',
-				target: 5
-			},
-			{
 				text: 'NPC Quests',
 				target: 18
+			},
+			{
+				text: 'Town',
+				target: 11
+			},
+			{
+				text: 'Explore World',
+				target: 5
 			}
 		]
 	},
@@ -294,46 +282,30 @@ var PAGES = [
 		type: 'choice',
 		choices: [
 			{
-				text: 'Explore World',
-				target: 5
-			},
-			{
-				text: 'Castles',
-				target: 15
-			},
-			{
-				text: 'Towns',
-				target: 11
-			},
-			{
-				text: 'Pub, Inn',
-				target: 21
-			},
-			{
-				text: 'Markets',
-				target: 19
+				text: 'Dungeons',
+				target: 6
 			}
 		]
 	},
 	{
 		text: 'Markets',
-		keywords: ['item shops', 'midevil'],
+		keywords: ['Markets', 'shops', 'weapons'],
 		target: 19,
 		type: 'choice',
 		choices: [
 			{
-				text: 'Towns',
-				target: 11
-			},
-			{
 				text: 'NPC Quests',
 				target: 18
+			},
+			{
+				text: 'Town',
+				target: 11
 			}
 		]
 	},
 	{
-		text: 'Explore',
-		keywords: ['Explore'],
+		text: 'You wander around in a dark and dingy dungeon.',
+		keywords: ['cave', 'dungeon'],
 		target: 20,
 		type: 'choice',
 		choices: [
@@ -342,16 +314,8 @@ var PAGES = [
 				target: 7
 			},
 			{
-				text: 'Loot, Treasures',
-				target: 8
-			},
-			{
 				text: 'Level 2',
 				target: 13
-			},
-			{
-				text: 'Explore World',
-				target: 5
 			}
 		]
 	},
@@ -362,16 +326,16 @@ var PAGES = [
 		type: 'choice',
 		choices: [
 			{
-				text: 'Towns',
-				target: 11
-			},
-			{
 				text: 'Talk',
 				target: 22
 			},
 			{
 				text: 'NPC Quests',
 				target: 18
+			},
+			{
+				text: 'Town',
+				target: 11
 			}
 		]
 	},
@@ -382,23 +346,23 @@ var PAGES = [
 		type: 'choice',
 		choices: [
 			{
-				text: 'I am a traveler exploring the world.',
+				text: 'I wander around the earth, seeking fame and adventure.',
 				target: 23
 			},
 			{
-				text: 'I come from a farm on the outskirts of town.',
+				text: 'I was a farmer, but I seek a new purpose.',
 				target: 24
 			},
 			{
-				text: 'I hail from a wealthy family. My father is a renowned merchant.',
+				text: 'I hail from a wealthy merchant family, and I seek new trades.',
 				target: 25
 			},
 			{
-				text: "You don't need to know that.",
+				text: 'You don\'t need to know that.',
 				target: 26
 			},
 			{
-				text: "I don't remember who I am.",
+				text: 'I don\'t remember who I am.',
 				target: 27
 			}
 
@@ -407,6 +371,7 @@ var PAGES = [
 	{
 		img: 'img/npc.jpg',
 		target: 23,
+		keywords: ['traveler', 'bard'],
 		text: 'Ah, a traveler? Fascinating!',
 		type: 'choice',
 		choices: [
@@ -423,6 +388,7 @@ var PAGES = [
 	{
 		img: 'img/npc.jpg',
 		target: 24,
+		keywords: ['farmer', 'rural', 'Agriculture'],
 		text: 'Ah, the rural life on the farm?',
 		type: 'choice',
 		choices: [
@@ -439,8 +405,8 @@ var PAGES = [
 	{
 		img: 'img/npc.jpg',
 		target: 25,
-		text:
-			"A merchant's child? You're quite the young aristocrat, aren't you?",
+		keywords: ['jewelry', 'shop', 'merchant'],
+		text:	'A merchant\'s child? You\'re quite the young aristocrat, aren\'t you?',
 		type: 'choice',
 		choices: [
 			{
@@ -456,7 +422,8 @@ var PAGES = [
 	{
 		img: 'img/npc.jpg',
 		target: 26,
-		text: "Ah, a shady type. Fine, you don't have to tell me.",
+		keywords: ['thief', 'rogue'],
+		text: 'Ah, a shady type. Fine, you don\'t have to tell me.',
 		type: 'choice',
 		choices: [
 			{
@@ -472,7 +439,8 @@ var PAGES = [
 	{
 		img: 'img/npc.jpg',
 		target: 27,
-		text: "Ah, well that's a shame and I hope you remember in time.",
+		keywords: ['unkhown'],
+		text: 'Ah, well that\'s a shame and I hope you remember in time.',
 		type: 'choice',
 		choices: [
 			{
@@ -484,5 +452,22 @@ var PAGES = [
 				target: 21
 			}
 		]
-	}
+	},
+	{
+		img: 'img/npc.jpg',
+		text: 'Welcome back.',
+		target: 28,
+		type: 'choice',
+		choices: [
+			{
+				text: 'Talk',
+				target: 22
+			},
+			{
+				text: 'Town',
+				target: 11
+			}
+		]
+	},
+
 ]

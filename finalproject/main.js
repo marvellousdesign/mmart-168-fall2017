@@ -14,21 +14,39 @@ const setPageImg = (data) => {
 	const keywords = data.keywords
 
 	//flickr public photos feed
-	const flickr = `https://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?`
+	const flickr = 'https://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?'
 	// can't use the fetch without throwing CORs error (Cross Orgin Request), only works with jQuery...
-
-	$.getJSON( flickr, {
-        tags: keywords, 	// Can't seem to search by keywords, it's just random recently upload images
-        tagmode: "any",
-        format: "json"
-    },
-    function(data) {
-		const random = Math.floor(Math.random() * data.items.length)
-		const img = document.createElement('img')
-		img.src = data.items[random]['media']['m'].replace('_m', '_b')
-		document.getElementById('pageImg').appendChild(img)
-		console.log('Image fetched: ' + img.src)
-    })
+	if (keywords === undefined) {
+		document.getElementById('pageImg').innerHTML += `<img src=${hardCodedImg} />`
+	} else {
+		$.getJSON(flickr, {
+			tags: keywords.join(','), // works now, but not without .join(',')
+			tagmode: 'all',
+			format: 'json'
+	    },
+	    (data) => {
+			const random = Math.floor(Math.random() * data.items.length)
+			if (data.items[random] === undefined) { // when tagmode all doesn't give anything
+				$.getJSON(flickr, {
+					tags: keywords.join(','),
+					tagmode: 'any', // change to any
+					format: 'json'
+				},
+				(data) => {
+					const random = Math.floor(Math.random() * data.items.length)
+					const img = document.createElement('img')
+					img.src = data.items[random]['media']['m'].replace('_m', '_b')
+					document.getElementById('pageImg').appendChild(img)
+					console.log('Image fetched: ' + img.src)
+				})
+			} else {
+				const img = document.createElement('img')
+				img.src = data.items[random]['media']['m'].replace('_m', '_b')
+				document.getElementById('pageImg').appendChild(img)
+				console.log('Image fetched: ' + img.src)
+			}
+	    })
+	}
 }
 
 const addChoice = (text, target) => {
@@ -39,7 +57,8 @@ const addChoice = (text, target) => {
 const loadPage = (target) => {
 	// Fetch JSON for page data associated with given data-target
 	const pageData = PAGES[target]
-	console.log('Current Page Keyword: ' + PAGES[target].keywords + ' | Current Page: ' + PAGES[target])
+	console.log('-------------------------------------------------------------------------------------------------')
+	console.log('Current Page Keyword: ' + PAGES[target].keywords + ' | Current Page: ' + target)
 
 	clearPage()
 	setPageText(pageData.text)
