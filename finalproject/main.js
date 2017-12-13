@@ -1,15 +1,19 @@
 // org https://jsfiddle.net/crmardix/zjWaj/
 let currentPage = 0
 let apiType = 'flickr'
+
 const clearPage = () => {
 	document.getElementById('pageImg').innerHTML = ''
 	document.getElementById('pageText').innerHTML = ''
 	document.getElementById('response').innerHTML = ''
+	document.getElementById('battle').innerHTML = ''
 }
 
 const setPageText = (text) => {
 	document.getElementById('pageText').innerHTML = `<p> ${text} </p>`
 }
+
+//------------------------------------------------------------------------------
 
 const setPageImg = (data) => {
 	const img = document.createElement('img')
@@ -24,6 +28,7 @@ const setPageImg = (data) => {
 	}
 	const keywords = data.keywords
 
+	//Google Custom Search API has a 100 request a day limit  ------------------
 	if (apiType === 'google') {
 		const key = 'AIzaSyA0OwYNa1ng9-5MAUhOpwOc9f2PU_kqeeY'
 		const searchEngineID = '011931807795810912304:yctplun7xr4'
@@ -40,7 +45,9 @@ const setPageImg = (data) => {
 			    const items = json.items
 				if (items === undefined) {
 					hardCodedImg()
+					//loads hardCodedImage from the JSON if google reach it's limit (I don't have a hard coded image for everything)
 				} else {
+					//this will randomly choose a img with the items array
 					const random = Math.floor(Math.random() * items.length)
 					img.src = items[random].link
 					webImg(img)
@@ -48,7 +55,7 @@ const setPageImg = (data) => {
 			})
 		}
 	} else {
-		//flickr public photos feed
+		//flickr public photos feed --------------------------------------------
 		const flickr = 'https://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?'
 		// can't use the fetch without throwing CORs error (Cross Orgin Request), only works with jQuery...
 		if (keywords === undefined) {
@@ -60,6 +67,7 @@ const setPageImg = (data) => {
 				format: 'json'
 			},
 			(data) => {
+				//this will randomly choose a img with the data.items array
 				const random = Math.floor(Math.random() * data.items.length)
 				if (data.items[random] === undefined) { // when tagmode all doesn't give anything
 					$.getJSON(flickr, {
@@ -68,15 +76,17 @@ const setPageImg = (data) => {
 						format: 'json'
 					},
 					(data) => {
+						//this will randomly choose a img with the data.items array
 						const random = Math.floor(Math.random() * data.items.length)
 						if (data.items[random] === undefined) {
 							hardCodedImg()
+							//loads hardCodedImage from the JSON if flickr doesn't give anything
 						} else {
 							img.src = data.items[random]['media']['m'].replace('_m', '_b')
 							webImg(img)
 						}
 					})
-				} else {
+				} else { //for tagemode all
 					img.src = data.items[random]['media']['m'].replace('_m', '_b')
 					webImg(img)
 				}
@@ -85,10 +95,23 @@ const setPageImg = (data) => {
 	}
 }
 
+//------------------------------------------------------------------------------
+
 const addChoice = (text, target) => {
-	document.getElementById('response').innerHTML +=
-        `<button class=choice data-target=${target} onClick="toggle(this)"> ${text} </button>`
+	document.getElementById('battle').style.display = 'none'
+	const response = document.getElementById('response')
+	response.style.display = 'flex'
+	response.innerHTML += `<button class=choice data-target=${target} onClick="toggle(this)"> ${text} </button>`
 }
+
+const battleResults = (text, target) => {
+	document.getElementById('response').style.display = 'none'
+	const battle = document.getElementById('battle')
+	battle.style.display = 'block'
+	battle.innerHTML = `<button class=choice data-target=${target} onClick="toggle(this)"> ${text} </button>`
+}
+
+//------------------------------------------------------------------------------
 
 const loadPage = (target) => {
 	// Fetch JSON for page data associated with given data-target
@@ -100,8 +123,7 @@ const loadPage = (target) => {
 		if (pageData.type === 'battle') {
 			const random = pageData.battles[Math.floor(Math.random() * pageData.battles.length)]
 			console.log(`${random.text} Target page: ${random.target}`)
-			addChoice(random.text, random.target)
-			// how to hide this classless fight button after the above have been executed??
+			battleResults(random.text, random.target)
 		}
 		console.log(pageData.battles)
 	}
@@ -126,6 +148,8 @@ const loadPage = (target) => {
 		}
 	}
 }
+
+//------------------------------------------------------------------------------
 
 const chooseAPI = () => {
 	apiType = document.querySelector('input[name=api]:checked').value

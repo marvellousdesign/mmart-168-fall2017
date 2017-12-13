@@ -67,9 +67,12 @@ img {
 #pageText p {
     text-align: center;
 }
-#response {
+#response, #battle {
     position: relative;
     bottom: 300px;
+}
+#battle {
+    display: none;
 }
 .flex {
     display: flex;
@@ -98,10 +101,6 @@ img {
     font-size: 10px;
     line-height: 2;
 }
-/*[data-target='undefined'] {
-    display: none;
-}*/
-
 .fadeIn {
     -webkit-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
     -moz-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
@@ -109,7 +108,6 @@ img {
     -ms-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
     animation: fadeIn 0.5s ease-in-out 0.3s backwards;
 }
-
 @-webkit-keyframes fadeIn {
 	0%{top:-30px; opacity: 0;}
 	100%{top:0px; opacity: 1;}
