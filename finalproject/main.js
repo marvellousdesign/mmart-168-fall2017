@@ -2,15 +2,19 @@
 let currentPage = 0
 let apiType = 'flickr'
 
+const chooseAPI = () => {
+	apiType = document.querySelector('input[name=api]:checked').value
+	console.log(`API Selected: ${apiType}`)
+	loadPage(0)
+	document.getElementById('page').style.display = 'block'
+	document.getElementById('initialize').style.display = 'none'
+}
+
 const clearPage = () => {
 	document.getElementById('pageImg').innerHTML = ''
 	document.getElementById('pageText').innerHTML = ''
 	document.getElementById('response').innerHTML = ''
 	document.getElementById('battle').innerHTML = ''
-}
-
-const setPageText = (text) => {
-	document.getElementById('pageText').innerHTML = `<p> ${text} </p>`
 }
 
 //------------------------------------------------------------------------------
@@ -97,6 +101,17 @@ const setPageImg = (data) => {
 
 //------------------------------------------------------------------------------
 
+const setPageText = (text) => {
+	document.getElementById('pageText').innerHTML = `<p> ${text} </p>`
+}
+
+const toggle = choice => {
+	choice.classList.toggle('choice')
+	const target = choice.getAttribute('data-target')
+	loadPage(target)
+	console.log(`Selected Target #: ${target}`)
+}
+
 const addChoice = (text, target) => {
 	document.getElementById('battle').style.display = 'none'
 	const response = document.getElementById('response')
@@ -117,21 +132,26 @@ const loadPage = (target) => {
 	// Fetch JSON for page data associated with given data-target
 	const pageData = PAGES[target]
 
-	const battle = (target) => {
-		let pageData = PAGES[target].choices[0]
-		console.log(`Page Data: ${pageData} | Data Type: ${pageData.type}`)
-		if (pageData.type === 'battle') {
-			const random = pageData.battles[Math.floor(Math.random() * pageData.battles.length)]
+	const randomPage = (pageData) => {
+		const randomTarget = (pageChoiceOrBattle) => {
+			const random = pageChoiceOrBattle[Math.floor(Math.random() * pageChoiceOrBattle.length)]
 			console.log(`${random.text} Target page: ${random.target}`)
 			battleResults(random.text, random.target)
 		}
-		console.log(pageData.battles)
+		if (pageData.type === 'battle') {
+			randomTarget(pageData.battles)
+		} else {
+			randomTarget(pageData.choices)
+		}
 	}
-	console.log(pageData)
-	if (pageData === undefined) {
-		// How to check for target 7 vs target 9 (regular fight vs boss(gameover))
-		battle(7)
-	} else {
+
+	const battle = (target) => {
+		let pageData = PAGES[target].choices[0]
+		console.log(`Page Data: ${pageData} | Data Type: ${pageData.type}`)
+		randomPage(pageData)
+	}
+
+	const loadingPage = (target) => {
 		console.log('-------------------------------------------------------------------------------------------------')
 		console.log(`Current Page Keyword: ${PAGES[target].keywords} | Current Page: ${target}`)
 
@@ -147,21 +167,15 @@ const loadPage = (target) => {
 			}
 		}
 	}
-}
 
-//------------------------------------------------------------------------------
-
-const chooseAPI = () => {
-	apiType = document.querySelector('input[name=api]:checked').value
-	console.log(`API Selected: ${apiType}`)
-	loadPage(0)
-	document.getElementById('page').style.display = 'block'
-	document.getElementById('initialize').style.display = 'none'
-}
-
-const toggle = choice => {
-	choice.classList.toggle('choice')
-	const target = choice.getAttribute('data-target')
-	loadPage(target)
-	console.log(`Selected Target #: ${target}`)
+	console.log(pageData)
+	if (pageData === undefined) {
+		// How to check for target 20 vs target 24 (regular fight vs boss(gameover))
+		battle(20)
+	} else if ((pageData.target === 17) || (pageData.target === 18)) {
+		//randomize from going up a level to a encountering an enemies/monster
+		randomPage(pageData)
+	} else {
+		loadingPage(target)
+	}
 }
