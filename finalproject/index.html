@@ -9,7 +9,7 @@
 </head>
 <body>
     <!-- forms doesn't work for this purpose, it just reloads the page rather than loading page 0 from the JSON -->
-    <div id="initialize" class="flex">
+    <div id="initialize" class="flex fadeIn">
         <h2>Choose Your Poison</h2>
         <div>
             <label><input type="radio" name="api" value="flickr"> flickr</label>
@@ -19,7 +19,8 @@
         </div>
         <button onClick="chooseAPI()" class="choice">Select</button>
     </div>
-    <div id="page">
+    <div id="page" class="fadeIn">
+        <div id="pageImg"></div>
         <div id="pageText"></div>
         <div id="response" class="flex">
         </div>

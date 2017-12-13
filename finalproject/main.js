@@ -2,6 +2,7 @@
 let currentPage = 0
 let apiType = 'flickr'
 const clearPage = () => {
+	document.getElementById('pageImg').innerHTML = ''
 	document.getElementById('pageText').innerHTML = ''
 	document.getElementById('response').innerHTML = ''
 }
@@ -11,8 +12,15 @@ const setPageText = (text) => {
 }
 
 const setPageImg = (data) => {
+	const img = document.createElement('img')
 	const hardCodedImg = () => {
-		document.getElementById('page').style.backgroundImage = `url(${data.img})`
+		//document.getElementById('page').style.backgroundImage = `url(${data.img})`
+		document.getElementById('pageImg').innerHTML += `<img src=${data.img} />`
+	}
+	const webImg = (img) => {
+		//document.getElementById('page').style.backgroundImage = `url(${img})`
+		document.getElementById('pageImg').appendChild(img)
+		console.log(`Image fetched: ${img.src}`)
 	}
 	const keywords = data.keywords
 
@@ -34,14 +42,8 @@ const setPageImg = (data) => {
 					hardCodedImg()
 				} else {
 					const random = Math.floor(Math.random() * items.length)
-					const img = items[random].link
-					document.getElementById('page').style.backgroundImage = `url(${img})`
-					console.log(`Image fetched: ${img}`)
-
-					// items.forEach((item) => {
-					// 	console.log('Image fetched: ' + item.link)
-					// 	document.getElementById('page').style.backgroundImage = `url(${item.link})`
-					// })
+					img.src = items[random].link
+					webImg(img)
 				}
 			})
 		}
@@ -70,15 +72,13 @@ const setPageImg = (data) => {
 						if (data.items[random] === undefined) {
 							hardCodedImg()
 						} else {
-							const img = data.items[random]['media']['m'].replace('_m', '_b')
-							document.getElementById('page').style.backgroundImage = `url(${img})`
-							console.log('Image fetched: ' + img)
+							img.src = data.items[random]['media']['m'].replace('_m', '_b')
+							webImg(img)
 						}
 					})
 				} else {
-					const img = data.items[random]['media']['m'].replace('_m', '_b')
-					document.getElementById('page').style.backgroundImage = `url(${img})`
-					console.log('Image fetched: ' + img)
+					img.src = data.items[random]['media']['m'].replace('_m', '_b')
+					webImg(img)
 				}
 			})
 		}

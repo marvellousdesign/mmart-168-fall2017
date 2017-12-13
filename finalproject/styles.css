@@ -48,6 +48,7 @@ img {
     height: 900px;
     margin: 0 auto;
     max-width: 600px;
+    overflow: hidden;
 }
 #initialize {
     padding: 180px;
@@ -68,7 +69,7 @@ img {
 }
 #response {
     position: relative;
-    top: 600px;
+    bottom: 300px;
 }
 .flex {
     display: flex;
@@ -100,3 +101,32 @@ img {
 /*[data-target='undefined'] {
     display: none;
 }*/
+
+.fadeIn {
+    -webkit-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
+    -moz-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
+    -o-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
+    -ms-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
+    animation: fadeIn 0.5s ease-in-out 0.3s backwards;
+}
+
+@-webkit-keyframes fadeIn {
+	0%{top:-30px; opacity: 0;}
+	100%{top:0px; opacity: 1;}
+}
+@-moz-keyframes fadeIn {
+    0%{top:-30px; opacity: 0;}
+	100%{top:0px; opacity: 1;}
+}
+@-o-keyframes fadeIn {
+    0%{top:-30px; opacity: 0;}
+	100%{top:0px; opacity: 1;}
+}
+@-ms-keyframes fadeIn {
+    0%{top:-30px; opacity: 0;}
+	100%{top:0px; opacity: 1;}
+}
+@keyframes fadeIn {
+    0%{top:-30px; opacity: 0;}
+	100%{top:0px; opacity: 1;}
+}
