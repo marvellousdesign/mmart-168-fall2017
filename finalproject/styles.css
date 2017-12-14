@@ -4,34 +4,27 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    border: 0px;
 }
 html, body {
-    border: 0px;
     background: black;
     color: white;
-}
-body {
-    font: 1em/1.25 Arial, Helvetica, sans-serif;
+    font: 1em/1.25 'Lato', Arial, Helvetica, sans-serif;
+    letter-spacing: .3px;
 }
 /* Headlines */
  h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    padding: 0;
     font-weight: normal;
-    font-family: 'Lato', Arial, Helvetica, sans-serif;
 }
 /* Text Styles */
- p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input, select, textarea {
-    margin: 0;
-    padding: 0;
-    font: normal normal normal 1em/1.25 Arial, Helvetica, sans-serif;
+ p, th, td, li, dd, dt, ul, ol, blockquote, q, acronym, abbr, a, input, select, textarea, button {
+    font: normal normal normal 1em/1.25 'Lato', Arial, Helvetica, sans-serif;
 }
 /* Links and Images */
  a, a:link, a:visited, a:active, a:hover {
     text-decoration: none;
 }
 img {
-    border: none;
     width: inherit;
     /*height: inherit;*/
     max-width: 100%;
@@ -41,14 +34,14 @@ img {
 /* Application Specific */
 #page {
     display: none;
-    margin: 0 auto;
-    background: scroll center top/auto 100%;
+    /* background: scroll center top/auto 100%; */
 }
 #page, #initialize {
     height: 900px;
     margin: 0 auto;
     max-width: 600px;
     overflow: hidden;
+    border-radius: 5px;
 }
 #initialize {
     padding: 180px;
@@ -57,15 +50,14 @@ img {
     padding: 10px 20px 0;
 }
 #pageText {
-    position: absolute;
-    color: white;
-    top: 280px;
-    text-shadow: 1px 1px 2px #1F232B, 1px 1px 5px #1F232B, 1px 1px 10px #1F232B;
+    width: 600px;
     padding: 0 150px;
-    max-width: inherit;
+    position: absolute;
+    top: 280px;
 }
 #pageText p {
     text-align: center;
+    text-shadow: 1px 1px 2px #1F232B, 1px 1px 5px #1F232B, 1px 1px 10px #1F232B;
 }
 #response, #battle {
     position: relative;
@@ -74,26 +66,105 @@ img {
 #battle {
     display: none;
 }
+/* styles for choices/battles */
 .flex {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 .choice {
-    background-color: rgba(170,154,105, 0.3);
-    font-size: 1em;
-    color: white;
     border-radius: 3px;
-    border: none;
-    padding: 10px 20px;
     margin: 10px 20px 5px;
+    padding: 10px 20px;
     text-align: left;
     cursor: pointer;
 }
 .choice:hover,
 .choice:active {
-    background-color: rgba(170,154,105, 0.8);
+    background-color: rgba(255,255,255,0.3);
+    color: white;
+}
+.undefined {
+    background-color: rgba(170,154,105, 0.3);
+    color: white;
+}
+.undefined:hover,
+.undefined:active {
+    background-color: rgba(170,154,105,0.8);
     color: #1F232B;
+}
+.yellow {
+    background-color: rgba(255,255,0,0.3);
+}
+.yellow:hover,
+.yellow:active {
+    background-color: rgba(255,255,0,0.8);
+    color: #1F232B;
+}
+.orange {
+    background-color: rgba(255,165,0,0.3);
+}
+.orange:hover,
+.orange:active {
+    background-color: rgba(255,165,0,0.8);
+    color: #1F232B;
+}
+.orangered {
+    background-color: rgba(255,69,0,0.3);
+}
+.orangered:hover,
+.orangered:active {
+    background-color: rgba(255,69,0,0.8);
+    color: #1F232B;
+}
+.red {
+    background-color: rgba(255,0,0,0.3);
+}
+.red:hover,
+.red:active {
+    background-color: rgba(255,0,0,0.8);
+    color: #1F232B;
+}
+.lightgreen     {
+    background-color: rgba(144,238,144,0.3);
+}
+.lightgreen:hover,
+.lightgreen:active {
+    background-color: rgba(144,238,144,0.8);
+    color: #1F232B;
+}
+.green     {
+    background-color: rgba(0,255,0,0.3);
+}
+.green:hover,
+.green:active {
+    background-color: rgba(0,255,0,0.8);
+    color: #1F232B;
+}
+.lightblue {
+    background-color: rgba(173,216,230,0.3);
+}
+.lightblue:hover,
+.lightblue:active {
+    background-color: rgba(173,216,230,0.8);
+    color: #1F232B;
+}
+.blue {
+    background-color: rgba(0,0,255,0.3);
+}
+.blue:hover,
+.blue:active {
+    background-color: rgba(0,0,255,0.8);
+    color: #1F232B;
+}
+.black {
+    background-color: rgba(0,0,0,0.3);
+    color: red;
+}
+.black:hover,
+.black:active {
+    background-color: rgba(0,0,0,0.8);
+    color: red;
 }
 .diclaimer {
     text-align: center;
@@ -101,30 +172,33 @@ img {
     font-size: 10px;
     line-height: 2;
 }
+/* Animations */
 .fadeIn {
     -webkit-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
     -moz-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
-    -o-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
-    -ms-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
     animation: fadeIn 0.5s ease-in-out 0.3s backwards;
 }
 @-webkit-keyframes fadeIn {
-	0%{left:-30px; opacity: 0;}
+	0%{left:-300px; opacity: 0;}
 	100%{left:0px; opacity: 1;}
 }
 @-moz-keyframes fadeIn {
-    0%{left:-30px; opacity: 0;}
-	100%{left:0px; opacity: 1;}
-}
-@-o-keyframes fadeIn {
-    0%{left:-30px; opacity: 0;}
-	100%{left:0px; opacity: 1;}
-}
-@-ms-keyframes fadeIn {
-    0%{left:-30px; opacity: 0;}
+    0%{left:-300px; opacity: 0;}
 	100%{left:0px; opacity: 1;}
 }
 @keyframes fadeIn {
-    0%{left:-30px; opacity: 0;}
+    0%{left:-300px; opacity: 0;}
 	100%{left:0px; opacity: 1;}
+}
+#pageImg, #pageImg img {
+    opacity: 1;
+    -webkit-transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
+    -webkit-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
+    -moz-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
+    animation: fadeIn 0.5s ease-in-out 0.3s backwards;
+}
+#pageImg.transparent, #pageImg img.transparent {
+opacity:0;
 }

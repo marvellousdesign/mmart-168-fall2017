@@ -11,7 +11,10 @@ const chooseAPI = () => {
 }
 
 const clearPage = () => {
-	document.getElementById('pageImg').innerHTML = ''
+	setTimeout(() => { //fading out/delay
+		document.getElementById('pageImg').classList.add('transparent')
+		document.getElementById('pageImg').innerHTML = ''
+	},50)
 	document.getElementById('pageText').innerHTML = ''
 	document.getElementById('response').innerHTML = ''
 	document.getElementById('battle').innerHTML = ''
@@ -20,14 +23,18 @@ const clearPage = () => {
 //------------------------------------------------------------------------------
 
 const setPageImg = (data) => {
-	const img = document.createElement('img')
+	let imgElement = document.getElementById('pageImg')
+	let img = document.createElement('img')
+	// setTimeout & removeChild / innerHTML = '' is bugged if I put it here
 	const hardCodedImg = () => {
 		//document.getElementById('page').style.backgroundImage = `url(${data.img})`
-		document.getElementById('pageImg').innerHTML += `<img src=${data.img} />`
+		img.src = data.img
+		imgElement.appendChild(img)
+		//document.getElementById('pageImg').innerHTML = `<img src=${data.img} />`
 	}
 	const webImg = (img) => {
 		//document.getElementById('page').style.backgroundImage = `url(${img})`
-		document.getElementById('pageImg').appendChild(img)
+		imgElement.appendChild(img)
 		console.log(`Image fetched: ${img.src}`)
 	}
 	const keywords = data.keywords
@@ -42,9 +49,9 @@ const setPageImg = (data) => {
 			hardCodedImg()
 		} else {
 			fetch(google)
-			    .then(function(response) {
+			    .then((response) => {
 			    return response.json()
-			}).then(function(json) {
+			}).then((json) => {
 			    console.log(json)
 			    const items = json.items
 				if (items === undefined) {
@@ -102,28 +109,35 @@ const setPageImg = (data) => {
 //------------------------------------------------------------------------------
 
 const setPageText = (text) => {
-	document.getElementById('pageText').innerHTML = `<p> ${text} </p>`
+	document.getElementById('pageText').innerHTML = `<p>${text}</p>`
 }
 
-const toggle = choice => {
+const toggle = (choice) => {
 	choice.classList.toggle('choice')
 	const target = choice.getAttribute('data-target')
 	loadPage(target)
-	console.log(`Selected Target #: ${target}`)
 }
 
-const addChoice = (text, target) => {
+//Adds response choices
+const addChoice = (text, target, color) => {
 	document.getElementById('battle').style.display = 'none'
 	const response = document.getElementById('response')
 	response.style.display = 'flex'
-	response.innerHTML += `<button class=choice data-target=${target} onClick="toggle(this)"> ${text} </button>`
+	response.classList.add('fadeIn')
+	setTimeout(() => { //fading in/delay
+		response.innerHTML += `<button class='choice ${color}' data-target=${target} onClick="toggle(this)">${text}</button>`
+	},500)
 }
 
-const battleResults = (text, target) => {
+//Adds battle choice
+const battleResults = (text, target, color) => {
 	document.getElementById('response').style.display = 'none'
 	const battle = document.getElementById('battle')
 	battle.style.display = 'block'
-	battle.innerHTML = `<button class=choice data-target=${target} onClick="toggle(this)"> ${text} </button>`
+	battle.classList.add('fadeIn')
+	setTimeout(() => { //fading in/delay
+		battle.innerHTML = `<button class='choice ${color}' data-target=${target} onClick="toggle(this)">${text}</button>`
+	},500)
 }
 
 //------------------------------------------------------------------------------
@@ -133,46 +147,50 @@ const loadPage = (target) => {
 	const pageData = PAGES[target]
 
 	const randomPage = (pageData) => {
-		const randomTarget = (pageChoiceOrBattle) => {
+		const randomTarget = (pageChoiceOrBattle) => { //Randomly chooses 1 choice/battle results
 			const random = pageChoiceOrBattle[Math.floor(Math.random() * pageChoiceOrBattle.length)]
-			console.log(`${random.text} Target page: ${random.target}`)
-			battleResults(random.text, random.target)
+			battleResults(random.text, random.target, random.color)
 		}
 		if (pageData.type === 'battle') {
 			randomTarget(pageData.battles)
 		} else {
+			clearPage()
+			setPageText(pageData.text)
+			setTimeout(() => { //fading in/delay
+				document.getElementById('pageImg').classList.remove('transparent')
+				setPageImg(pageData)
+			},50)
 			randomTarget(pageData.choices)
 		}
 	}
 
 	const battle = (target) => {
 		let pageData = PAGES[target].choices[0]
-		console.log(`Page Data: ${pageData} | Data Type: ${pageData.type}`)
 		randomPage(pageData)
 	}
 
 	const loadingPage = (target) => {
-		console.log('-------------------------------------------------------------------------------------------------')
-		console.log(`Current Page Keyword: ${PAGES[target].keywords} | Current Page: ${target}`)
-
 		clearPage()
 		setPageText(pageData.text)
-		setPageImg(pageData)
-		console.log(`Page Text: ${pageData.text} | Keywords: ${pageData.keywords} | Img: ${pageData.img} | Data Type: ${pageData.type}`)
+		setTimeout(() => { //fading in/delay
+			document.getElementById('pageImg').classList.remove('transparent')
+			setPageImg(pageData)
+		},50)
 
 		if (pageData.type === 'choice') {
 			for (let choice in pageData.choices) {
 				const CYOA = pageData.choices[choice]
-				addChoice(CYOA.text, CYOA.target)
+				addChoice(CYOA.text, CYOA.target, CYOA.color)
 			}
 		}
 	}
 
+	console.log('----------------------------------------------------------------------------------------------------------------------------------------------------------------')
 	console.log(pageData)
 	if (pageData === undefined) {
 		// How to check for target 20 vs target 24 (regular fight vs boss(gameover))
 		battle(20)
-	} else if ((pageData.target === 17) || (pageData.target === 18)) {
+	} else if ((pageData.target === 17) || (pageData.target === 18) || (pageData.target === 14)) {
 		//randomize from going up a level to a encountering an enemies/monster
 		randomPage(pageData)
 	} else {
