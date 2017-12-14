@@ -170,35 +170,40 @@ img {
     text-align: center;
     color: grey;
     font-size: 10px;
-    line-height: 2;
+    line-height: 1.5;
 }
 /* Animations */
+.fadeIn2 {
+    -webkit-animation: fadeIn 2s ease-in-out 0.3s backwards;
+    animation: fadeIn 2s ease-in-out 0.3s backwards;
+}
+/* Animations generated from animista.net */
 .fadeIn {
-    -webkit-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
-    -moz-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
-    animation: fadeIn 0.5s ease-in-out 0.3s backwards;
+	-webkit-animation: fadeIn 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	animation: fadeIn 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 @-webkit-keyframes fadeIn {
-	0%{left:-300px; opacity: 0;}
-	100%{left:0px; opacity: 1;}
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
-@-moz-keyframes fadeIn {
-    0%{left:-300px; opacity: 0;}
-	100%{left:0px; opacity: 1;}
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
-@keyframes fadeIn {
-    0%{left:-300px; opacity: 0;}
-	100%{left:0px; opacity: 1;}
+.fadeLeft {
+	-webkit-animation: fadeLeft 0.4s cubic-bezier(0.175, 0.885, 0.320, 1.275) 1s both;
+	animation: fadeLeft 0.4s cubic-bezier(0.175, 0.885, 0.320, 1.275) 1s both;
+}
+@-webkit-keyframes fadeLeft {
+    0% { -webkit-transform: translateX(-300px); opacity: 0; }
+    100% { -webkit-transform: translateX(0); opacity: 1; }
+}
+@keyframes fadeLeft {
+    0% { transform: translateX(-300px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
 }
 #pageImg, #pageImg img {
     opacity: 1;
     -webkit-transition: opacity .5s ease-in-out;
-    -moz-transition: opacity .5s ease-in-out;
     transition: opacity .5s ease-in-out;
-    -webkit-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
-    -moz-animation: fadeIn 0.5s ease-in-out 0.3s backwards;
-    animation: fadeIn 0.5s ease-in-out 0.3s backwards;
-}
-#pageImg.transparent, #pageImg img.transparent {
-opacity:0;
 }

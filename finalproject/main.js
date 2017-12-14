@@ -12,10 +12,10 @@ const chooseAPI = () => {
 
 const clearPage = () => {
 	setTimeout(() => { //fading out/delay
-		document.getElementById('pageImg').classList.add('transparent')
+		document.getElementById('pageImg').classList.remove('fadeIn')
 		document.getElementById('pageImg').innerHTML = ''
+		document.getElementById('pageText').innerHTML = ''
 	},50)
-	document.getElementById('pageText').innerHTML = ''
 	document.getElementById('response').innerHTML = ''
 	document.getElementById('battle').innerHTML = ''
 }
@@ -28,14 +28,18 @@ const setPageImg = (data) => {
 	// setTimeout & removeChild / innerHTML = '' is bugged if I put it here
 	const hardCodedImg = () => {
 		//document.getElementById('page').style.backgroundImage = `url(${data.img})`
+		imgElement.classList.add('fadeIn')
 		img.src = data.img
 		imgElement.appendChild(img)
 		//document.getElementById('pageImg').innerHTML = `<img src=${data.img} />`
 	}
 	const webImg = (img) => {
 		//document.getElementById('page').style.backgroundImage = `url(${img})`
-		imgElement.appendChild(img)
-		console.log(`Image fetched: ${img.src}`)
+		setTimeout(() => { //fading in/delay
+			imgElement.classList.add('fadeIn')
+			imgElement.appendChild(img)
+			console.log(`Image fetched: ${img.src}`)
+		},50)
 	}
 	const keywords = data.keywords
 
@@ -73,12 +77,12 @@ const setPageImg = (data) => {
 			hardCodedImg()
 		} else {
 			$.getJSON(flickr, {
-				tags: keywords.join(','), // works now, but not without .join(',')
+				tags: keywords.join(','), // works now to search by keywords, but not without .join(',')
 				tagmode: 'all',
 				format: 'json'
 			},
 			(data) => {
-				//this will randomly choose a img with the data.items array
+				//this will randomly choose a img within the data.items array
 				const random = Math.floor(Math.random() * data.items.length)
 				if (data.items[random] === undefined) { // when tagmode all doesn't give anything
 					$.getJSON(flickr, {
@@ -87,7 +91,7 @@ const setPageImg = (data) => {
 						format: 'json'
 					},
 					(data) => {
-						//this will randomly choose a img with the data.items array
+						//this will randomly choose a img within the data.items array
 						const random = Math.floor(Math.random() * data.items.length)
 						if (data.items[random] === undefined) {
 							hardCodedImg()
@@ -109,7 +113,11 @@ const setPageImg = (data) => {
 //------------------------------------------------------------------------------
 
 const setPageText = (text) => {
-	document.getElementById('pageText').innerHTML = `<p>${text}</p>`
+	const pageTexts = document.getElementById('pageText')
+	setTimeout(() => { //fading in/delay
+		//pageTexts.classList.add('fadeIn')
+		pageTexts.innerHTML = `<p>${text}</p>`
+	},1000)
 }
 
 const toggle = (choice) => {
@@ -123,10 +131,9 @@ const addChoice = (text, target, color) => {
 	document.getElementById('battle').style.display = 'none'
 	const response = document.getElementById('response')
 	response.style.display = 'flex'
-	response.classList.add('fadeIn')
 	setTimeout(() => { //fading in/delay
 		response.innerHTML += `<button class='choice ${color}' data-target=${target} onClick="toggle(this)">${text}</button>`
-	},500)
+	},1000)
 }
 
 //Adds battle choice
@@ -134,10 +141,9 @@ const battleResults = (text, target, color) => {
 	document.getElementById('response').style.display = 'none'
 	const battle = document.getElementById('battle')
 	battle.style.display = 'block'
-	battle.classList.add('fadeIn')
 	setTimeout(() => { //fading in/delay
 		battle.innerHTML = `<button class='choice ${color}' data-target=${target} onClick="toggle(this)">${text}</button>`
-	},500)
+	},1000)
 }
 
 //------------------------------------------------------------------------------
@@ -155,12 +161,11 @@ const loadPage = (target) => {
 			randomTarget(pageData.battles)
 		} else {
 			clearPage()
-			setPageText(pageData.text)
 			setTimeout(() => { //fading in/delay
-				document.getElementById('pageImg').classList.remove('transparent')
 				setPageImg(pageData)
+				setPageText(pageData.text)
+				randomTarget(pageData.choices)
 			},50)
-			randomTarget(pageData.choices)
 		}
 	}
 
@@ -171,18 +176,16 @@ const loadPage = (target) => {
 
 	const loadingPage = (target) => {
 		clearPage()
-		setPageText(pageData.text)
 		setTimeout(() => { //fading in/delay
-			document.getElementById('pageImg').classList.remove('transparent')
 			setPageImg(pageData)
-		},50)
-
-		if (pageData.type === 'choice') {
-			for (let choice in pageData.choices) {
-				const CYOA = pageData.choices[choice]
-				addChoice(CYOA.text, CYOA.target, CYOA.color)
+			setPageText(pageData.text)
+			if (pageData.type === 'choice') {
+				for (let choice in pageData.choices) {
+					const CYOA = pageData.choices[choice]
+					addChoice(CYOA.text, CYOA.target, CYOA.color)
+				}
 			}
-		}
+		},50)
 	}
 
 	console.log('----------------------------------------------------------------------------------------------------------------------------------------------------------------')
