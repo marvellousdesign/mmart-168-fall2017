@@ -33,12 +33,13 @@ const setPageImg = (data) => {
 		imgElement.appendChild(img)
 		//document.getElementById('pageImg').innerHTML = `<img src=${data.img} />`
 	}
-	const webImg = (img) => {
+	let imgContext
+	const webImg = (img, imgContext) => {
 		//document.getElementById('page').style.backgroundImage = `url(${img})`
 		setTimeout(() => { //fading in/delay
 			imgElement.classList.add('fadeIn')
 			imgElement.appendChild(img)
-			console.log(`Image fetched: ${img.src}`)
+			console.log(`Image fetched: ${img.src} | Context Link: ${imgContext}`)
 		},50)
 	}
 	const keywords = data.keywords
@@ -64,8 +65,9 @@ const setPageImg = (data) => {
 				} else {
 					//this will randomly choose a img with the items array
 					const random = Math.floor(Math.random() * items.length)
+					imgContext = items[random].image.contextLink
 					img.src = items[random].link
-					webImg(img)
+					webImg(img, imgContext)
 				}
 			})
 		}
@@ -82,6 +84,7 @@ const setPageImg = (data) => {
 				format: 'json'
 			},
 			(data) => {
+				console.log(data)
 				//this will randomly choose a img within the data.items array
 				const random = Math.floor(Math.random() * data.items.length)
 				if (data.items[random] === undefined) { // when tagmode all doesn't give anything
@@ -91,19 +94,22 @@ const setPageImg = (data) => {
 						format: 'json'
 					},
 					(data) => {
+						console.log(data)
 						//this will randomly choose a img within the data.items array
 						const random = Math.floor(Math.random() * data.items.length)
 						if (data.items[random] === undefined) {
 							hardCodedImg()
 							//loads hardCodedImage from the JSON if flickr doesn't give anything
 						} else {
+							imgContext = data.items[random].link
 							img.src = data.items[random]['media']['m'].replace('_m', '_b')
-							webImg(img)
+							webImg(img, imgContext)
 						}
 					})
 				} else { //for tagemode all
+					imgContext = data.items[random].link
 					img.src = data.items[random]['media']['m'].replace('_m', '_b')
-					webImg(img)
+					webImg(img, imgContext)
 				}
 			})
 		}
